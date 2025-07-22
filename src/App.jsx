@@ -1,17 +1,21 @@
 import './App.css';
-import Header from './components/Header.jsx';
-import MainContent from './components/MainContent.jsx';
-import AsideContent from './components/AsideContent.jsx';
 
 function App() {
-
+  const todosArr = [
+    { id: 1, title: 'states' },
+    { id: 2, title: 'props' },
+    { id: 3, title: 'react elements' },
+  ];
+  const todos = todosArr.map((item) => {
+    return <li key={item.id}>{item.title}</li>;
+  });
 
   return (
-    <>
-      <Header />
-      <MainContent />
-      <AsideContent />
-    </>
+    <div>
+      <h1>My Todo 🌺</h1>
+      <h3>Continue learning react concepts like: </h3>
+      <ul>{todos}</ul>
+    </div>
   );
 }
 
