@@ -1,17 +1,13 @@
-import TodoListItem from "./TodoListItem";
+import TodoListItem from './TodoListItem';
 
-
-function TodoList() {
-  const todosArr = [
-    { id: 1, title: 'states' },
-    { id: 2, title: 'props' },
-    { id: 3, title: 'react elements' },
-  ];
-  const todos = todosArr.map((item) => {
-    return <TodoListItem key={item.id} todo={item.title}/>;
-  });
-
-  return <ul>{todos}</ul>;
+function TodoList({ todoList }) {
+  return (
+    <ul>
+      {todoList.map((todo) => (
+        <TodoListItem key={todo.id} todo={todo} />
+      ))}
+    </ul>
+  );
 }
 
 export default TodoList;
