@@ -5,11 +5,10 @@ function TodoListItem({ todo, onCompleteTodo, onUpdateTodo }) {
   const [isEditing, setIsEditing] = useState(false);
   const [workingTitle, setWorkingTitle] = useState(todo.title);
 
-  function handleUpdate(e) {
-    e.preventDefault();
-    onUpdateTodo({ ...todo, title: workingTitle });
-    setIsEditing(false);
-  }
+function handleUpdate() {
+  onUpdateTodo({ id: todo.id, title: workingTitle });
+  setIsEditing(false);
+}
 
   function handleCancel() {
     setWorkingTitle(todo.title);
