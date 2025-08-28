@@ -22,7 +22,7 @@ function TodoForm({ onAddTodo }) {
     <form onSubmit={handleAddTodo}>
       <TextInputWithLabel
         elementId="todoTitle"
-        label="Todo"
+        labelText="Todo"
         value={workingTodoTitle}
         onChange={handleChange}
         inputRef={todoTitleInput} 
