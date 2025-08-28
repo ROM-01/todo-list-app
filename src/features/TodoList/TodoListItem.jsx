@@ -7,16 +7,12 @@ function TodoListItem({ todo, onCompleteTodo, onUpdateTodo }) {
 
   useEffect(() => {
     setWorkingTitle(todo.title);
-  }, [todo.title]);
+  }, [todo]);
 
-  const handleUpdate = (event) => {
-    if (!isEditing) return;
-    event.preventDefault();
-
-    onUpdateTodo({ id: todo.id, title: workingTitle });
-
+  function handleUpdate() {
+    onUpdateTodo({ ...todo, title: workingTitle });
     setIsEditing(false);
-  };
+  }
 
   const handleCancel = () => {
     setWorkingTitle(todo.title);
