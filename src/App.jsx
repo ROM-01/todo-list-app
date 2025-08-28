@@ -39,33 +39,44 @@ function App() {
     fetchTodos();
   }, []);
 
-  const addTodo = async (newTodo) => {
-    const payload = {
-      records: [{ fields: newTodo }],
-    };
-    const options = {
-      method: 'POST',
-      headers: { Authorization: token, 'Content-Type': 'application/json' },
-      body: JSON.stringify(payload),
-    };
-
-    try {
-      setIsSaving(true);
-      const resp = await fetch(url, options);
-      if (!resp.ok) throw new Error(resp.statusText);
-
-      const { records } = await resp.json();
-      const savedTodo = { id: records[0].id, ...records[0].fields };
-      if (!savedTodo.isCompleted) savedTodo.isCompleted = false;
-
-      setTodoList([...todoList, savedTodo]);
-    } catch (error) {
-      console.error(error);
-      setErrorMessage(error.message);
-    } finally {
-      setIsSaving(false);
-    }
+const addTodo = async (newTodo) => {
+  const payload = {
+    records: [
+      {
+        fields: {
+          title: newTodo.title,
+          isCompleted: newTodo.isCompleted,
+        },
+      },
+    ],
   };
+
+  const options = {
+    method: 'POST',
+    headers: {
+      Authorization: token,
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(payload),
+  };
+
+  try {
+    setIsSaving(true);
+    const resp = await fetch(url, options);
+    if (!resp.ok) throw new Error(resp.statusText);
+
+    const { records } = await resp.json();
+    const savedTodo = { id: records[0].id, ...records[0].fields };
+    if (!savedTodo.isCompleted) savedTodo.isCompleted = false;
+
+    setTodoList([...todoList, savedTodo]);
+  } catch (error) {
+    console.error(error);
+    setErrorMessage(error.message);
+  } finally {
+    setIsSaving(false);
+  }
+};
 
   const completeTodo = async (id) => {
     const originalTodo = todoList.find((t) => t.id === id);
