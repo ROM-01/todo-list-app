@@ -25,7 +25,7 @@ function TodoForm({ onAddTodo }) {
         labelText="Todo"
         value={workingTodoTitle}
         onChange={handleChange}
-        inputRef={todoTitleInput} 
+        ref={todoTitleInput} 
       />
 
       <button disabled={workingTodoTitle.trim() === ''}>Add Todo</button>

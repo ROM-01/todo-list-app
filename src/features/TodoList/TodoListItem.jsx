@@ -25,20 +25,17 @@ function TodoListItem({ todo, onCompleteTodo, onUpdateTodo }) {
 
   return (
     <li>
-      {}
       <form onSubmit={handleUpdate}>
         {isEditing ? (
           <>
             <TextInputWithLabel
               elementId={`edit-${todo.id}`}
-              label="Edit Todo"
+              labelText="Edit Todo"
               value={workingTitle}
               onChange={(e) => setWorkingTitle(e.target.value)}
               ref={null}
             />
-            {}
             <button type="submit">Update</button>
-            {}
             <button type="button" onClick={handleCancel}>
               Cancel
             </button>
@@ -50,7 +47,6 @@ function TodoListItem({ todo, onCompleteTodo, onUpdateTodo }) {
               checked={todo.isCompleted}
               onChange={() => onCompleteTodo(todo.id)}
             />
-            {}
             <span onClick={() => setIsEditing(true)}>{todo.title}</span>
           </>
         )}
