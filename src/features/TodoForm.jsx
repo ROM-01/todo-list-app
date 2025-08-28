@@ -5,15 +5,14 @@ function TodoForm({ onAddTodo, isSaving }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (!title.trim()) return; // Prevent empty todos
+    if (!title.trim()) return;
 
-    // Pass a todo object with the required keys
     onAddTodo({
       title: title.trim(),
       isCompleted: false,
     });
 
-    setTitle(''); // Clear input after adding
+    setTitle('');
   };
 
   return (
