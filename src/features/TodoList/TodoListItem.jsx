@@ -9,7 +9,8 @@ function TodoListItem({ todo, onCompleteTodo, onUpdateTodo }) {
     setWorkingTitle(todo.title);
   }, [todo]);
 
-  function handleUpdate() {
+  function handleUpdate(e) {
+    e.preventDefault();
     onUpdateTodo({ ...todo, title: workingTitle });
     setIsEditing(false);
   }
