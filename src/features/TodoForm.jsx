@@ -1,36 +1,30 @@
-import { useState, useRef } from 'react';
-import TextInputWithLabel from '../shared/TextInputWithLabel';
+import { useState } from 'react';
 
 function TodoForm({ onAddTodo, isSaving }) {
-  const [workingTodoTitle, setWorkingTodoTitle] = useState('');
-  const todoTitleInput = useRef();
+  const [title, setTitle] = useState('');
 
-  function handleAddTodo(event) {
-    event.preventDefault();
-    if (workingTodoTitle.trim() === '') return;
-
-    onAddTodo({ title: workingTodoTitle.trim(), isCompleted: false });
-    setWorkingTodoTitle('');
-    todoTitleInput.current.focus();
-  }
-
-  function handleChange(e) {
-    setWorkingTodoTitle(e.target.value);
-  }
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (!title.trim()) return;
+    onAddTodo(title.trim());
+    setTitle('');
+  };
 
   return (
-    <form onSubmit={handleAddTodo}>
-      <TextInputWithLabel
-        elementId="todoTitle"
-        label="Todo"
-        value={workingTodoTitle}
-        onChange={handleChange}
-        inputRef={todoTitleInput}
-      />
-
-      <button disabled={workingTodoTitle.trim() === ''}>
-        {isSaving ? 'Saving...' : 'Add Todo'}
-      </button>
+    <form onSubmit={handleSubmit}>
+      <div>
+        <label htmlFor="todoTitle">New Todo:</label>
+        <input
+          id="todoTitle"
+          type="text"
+          value={title}
+          onChange={(e) => setTitle(e.target.value)}
+          placeholder="Enter todo"
+        />
+        <button type="submit" disabled={isSaving || !title.trim()}>
+          {isSaving ? 'Saving...' : 'Add Todo'}
+        </button>
+      </div>
     </form>
   );
 }
