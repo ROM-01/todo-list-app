@@ -6,12 +6,7 @@ function TodoForm({ onAddTodo, isSaving }) {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!title.trim()) return;
-
-    onAddTodo({
-      title: title.trim(),
-      isCompleted: false,
-    });
-
+    onAddTodo(title.trim());
     setTitle('');
   };
 
