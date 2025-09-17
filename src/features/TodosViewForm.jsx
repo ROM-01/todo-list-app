@@ -1,4 +1,19 @@
 import { useState, useEffect } from 'react';
+import styled from 'styled-components';
+
+const StyledForm = styled.form`
+  padding: 1rem;
+`;
+
+const StyledInput = styled.input`
+  padding: 0.5rem;
+  margin-right: 0.5rem;
+`;
+
+const StyledButton = styled.button`
+  padding: 0.5rem;
+  ${(props) => props.disabled && `font-style: italic;`}
+`;
 
 function TodosViewForm({
   sortField,
@@ -23,19 +38,19 @@ function TodosViewForm({
   }
 
   return (
-    <form onSubmit={preventRefresh}>
+    <StyledForm onSubmit={preventRefresh}>
       <div>
         <label>
           Search todos:
-          <input
+          <StyledInput
             type="text"
             value={localQueryString}
             onChange={(e) => setLocalQueryString(e.target.value)}
           />
         </label>
-        <button type="button" onClick={() => setLocalQueryString('')}>
+        <StyledButton type="button" onClick={() => setLocalQueryString('')}>
           Clear
-        </button>
+        </StyledButton>
       </div>
 
       <div>
@@ -61,7 +76,7 @@ function TodosViewForm({
           </select>
         </label>
       </div>
-    </form>
+    </StyledForm>
   );
 }
 
