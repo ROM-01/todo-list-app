@@ -1,0 +1,21 @@
+.appContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center; 
+  min-height: 100vh;
+  width: 100%;
+  background-color: #f3f4f6;
+  font-family: 'Arial', sans-serif;
+  background-image: url('/src/assets/background-gradient.jpg');
+  background-size: cover;
+  padding-bottom: 5rem;
+}
+
+.errorMessage {
+  border: 1px solid red;
+  padding: 0.5rem;
+  margin-top: 1rem;
+  color: red;
+  background-color: #ffe6e6;
+}
