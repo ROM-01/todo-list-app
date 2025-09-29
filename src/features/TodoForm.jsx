@@ -1,4 +1,19 @@
 import { useState } from 'react';
+import styled from 'styled-components';
+
+const StyledForm = styled.form`
+  padding: 1rem;
+`;
+
+const StyledInput = styled.input`
+  padding: 0.5rem;
+  margin-right: 0.5rem;
+`;
+
+const StyledButton = styled.button`
+  padding: 0.5rem;
+  ${(props) => props.disabled && `font-style: italic;`}
+`;
 
 function TodoForm({ onAddTodo, isSaving }) {
   const [title, setTitle] = useState('');
@@ -11,21 +26,21 @@ function TodoForm({ onAddTodo, isSaving }) {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <StyledForm onSubmit={handleSubmit}>
       <div>
         <label htmlFor="todoTitle">New Todo:</label>
-        <input
+        <StyledInput
           id="todoTitle"
           type="text"
           value={title}
           onChange={(e) => setTitle(e.target.value)}
           placeholder="Enter todo"
         />
-        <button type="submit" disabled={isSaving || !title.trim()}>
+        <StyledButton type="submit" disabled={isSaving || !title.trim()}>
           {isSaving ? 'Saving...' : 'Add Todo'}
-        </button>
+        </StyledButton>
       </div>
-    </form>
+    </StyledForm>
   );
 }
 
