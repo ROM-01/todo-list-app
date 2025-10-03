@@ -25,9 +25,7 @@ body {
 
 h1, h2, h3 {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  margin-bottom: 15px;
   text-align: center;
-  color: #2c3e50;
 }
 
 button {
