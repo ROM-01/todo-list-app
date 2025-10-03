@@ -1,4 +1,5 @@
-import { useSearchParams } from 'react-router-dom';
+import { useEffect } from 'react';
+import { useSearchParams, useNavigate } from 'react-router-dom';
 import TodoForm from '../features/TodoForm';
 import TodoList from '../features/TodoList/TodoList';
 import TodosViewForm from '../features/TodosViewForm';
@@ -19,7 +20,8 @@ function TodosPage({
   dispatch,
 }) {
   const [searchParams, setSearchParams] = useSearchParams();
-  const itemsPerPage = 5;
+  const navigate = useNavigate();
+  const itemsPerPage = 15;
 
   const currentPage = parseInt(searchParams.get('page') || '1', 10);
 
@@ -27,13 +29,16 @@ function TodosPage({
     (todo) => !todo.isCompleted
   );
 
+  const totalPages = Math.max(
+    Math.ceil(filteredTodoList.length / itemsPerPage),
+    1
+  );
+
   const indexOfFirstTodo = (currentPage - 1) * itemsPerPage;
   const currentTodos = filteredTodoList.slice(
     indexOfFirstTodo,
     indexOfFirstTodo + itemsPerPage
   );
-
-  const totalPages = Math.ceil(filteredTodoList.length / itemsPerPage);
 
   const handlePreviousPage = () => {
     if (currentPage > 1) {
@@ -47,9 +52,19 @@ function TodosPage({
     }
   };
 
+  useEffect(() => {
+    if (
+      totalPages > 0 &&
+      (isNaN(currentPage) || currentPage < 1 || currentPage > totalPages)
+    ) {
+      navigate('/');
+    }
+  }, [currentPage, totalPages, navigate]);
+
   return (
     <div className={styles.todosPage}>
       <TodoForm onAddTodo={addTodo} isSaving={todoState.isSaving} />
+
       <TodoList
         todoList={currentTodos}
         onCompleteTodo={completeTodo}
@@ -57,22 +72,17 @@ function TodosPage({
         isLoading={todoState.isLoading}
       />
 
-      {totalPages > 1 && (
-        <div className={styles.paginationControls}>
-          <button onClick={handlePreviousPage} disabled={currentPage === 1}>
-            Previous
-          </button>
-          <span>
-            Page {currentPage} of {totalPages}
-          </span>
-          <button
-            onClick={handleNextPage}
-            disabled={currentPage === totalPages}
-          >
-            Next
-          </button>
-        </div>
-      )}
+      <div className={styles.paginationControls}>
+        <button onClick={handlePreviousPage} disabled={currentPage === 1}>
+          Previous
+        </button>
+        <span>
+          Page {currentPage} of {totalPages}
+        </span>
+        <button onClick={handleNextPage} disabled={currentPage === totalPages}>
+          Next
+        </button>
+      </div>
 
       <hr />
       <TodosViewForm
@@ -83,6 +93,7 @@ function TodosPage({
         queryString={queryString}
         setQueryString={setQueryString}
       />
+
       {todoState.errorMessage && (
         <div className={styles.errorMessage}>
           <hr />
