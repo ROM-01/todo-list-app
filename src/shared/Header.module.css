@@ -1,0 +1,31 @@
+.header {
+  position: relative;
+  padding: 1rem;
+  text-align: center;
+  display: flex;
+
+}
+
+.header h1 {
+  margin: 0;
+  font-size: 3rem;
+  margin-top: 1rem;
+}
+
+nav {
+  position: absolute;
+  display: flex;
+  gap: 1rem;
+  margin: auto;
+}
+
+.active {
+  color: #666;
+  font-weight: bold;
+  text-decoration: underline;
+}
+
+.inactive {
+  color: #000;
+  text-decoration: none;
+}
